@@ -1,16 +1,41 @@
-/**
- * Rod cutting problem described in Chapter 15 of textbook
- */
+
 public class RodCutting {
 
   // Do not change the parameters!
   public int rodCuttingRecur(int rodLength, int[] lengthPrices) {
-    return 0;
+	  int n = rodLength;
+	  if (n <= 0) 
+          return 0; 
+      int max_val = Integer.MIN_VALUE; 
+
+      // Recursively cut the rod in different pieces and 
+      // compare different configurations 
+      for (int i = 0; i<n; i++) 
+          max_val = Math.max(max_val, 
+        		  lengthPrices[i] + rodCuttingRecur( n-i-1 ,lengthPrices)); 
+
+      return max_val; 
   }
 
   // Do not change the parameters!
   public int rodCuttingBottomUp(int rodLength, int[] lengthPrices) {
-    return 0;
+	  
+	  int n = rodLength;
+	  int val[] = new int[n+1]; 
+      val[0] = 0; 
+
+      // Build the table val[] in bottom up manner and return 
+      // the last entry from the table 
+      for (int i = 1; i<=n; i++) 
+      { 
+          int max_val = Integer.MIN_VALUE; 
+          for (int j = 0; j < i; j++) 
+              max_val = Math.max(max_val,  
+            		  lengthPrices[j] + val[i-j-1]); 
+          val[i] = max_val; 
+      } 
+
+      return val[n]; 
   }
 
 
